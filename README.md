@@ -90,35 +90,35 @@ TrainTicketBookingSystem/
 
 ### Tables Included
 
-1. **admin**  
+1. **`admin`**  
    Stores administrator credentials.
 
-2. **users**  
+2. **`users`**  
    Stores user profile details.
 
-3. **user_login**  
+3. **`user_login`**  
    Stores login authentication data for users.
 
-4. **trains**  
+4. **`trains`**  
    Stores all train information such as name, timing, route, price, and seat capacity.
 
-5. **available_seats**  
+5. **`available_seats`**  
    Tracks remaining seats for each train.
 
-6. **bookings**  
+6. **`bookings`**  
    Stores booking details for each user including fare, seats booked, and timestamp.
 
 ### Table Relationships
 
 - `train_number` links the following tables:
-  - trains
-  - available_seats
-  - bookings
+  - `trains`
+  - `available_seats`
+  - `bookings`
 
 - `email` links:
-  - users
-  - user_login
-  - bookings
+  - `users`
+  - ``user_login``
+  - ``bookings``
 
 ### Key Database Operations
 
