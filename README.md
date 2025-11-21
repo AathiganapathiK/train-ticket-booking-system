@@ -1,210 +1,149 @@
-# 🚆 Train Ticket Booking System  
-A complete web-based Train Ticket Booking Application built using **Java (JSP + Servlets)**, **MySQL**, and **Tomcat Server**.  
-This system allows users to search trains, book tickets, manage bookings, and provides an admin panel to manage trains.
+# Train Ticket Booking System
 
----
+A web-based application built using Java Servlets, JSP, and MySQL that enables users to register, log in, search trains, book tickets, and view booking details. Administrators can manage trains, view passengers, and monitor bookings through a dedicated dashboard.
 
-## 📌 Features
+## Features
 
-### 👤 User Module
-- User Registration & Login  
-- Search trains by route  
-- Book tickets easily  
-- Check available seats  
-- View booking details  
-- Cancel bookings  
+### Admin
+- Secure login using admin credentials.
+- Add new train details including train number, name, date, time, origin, destination, price, and seat capacity.
+- Edit or delete existing train details.
+- View the list of all trains.
+- View all booked passenger information.
+- Logout functionality.
 
-### 🛠️ Admin Module
-- Admin login  
-- Add new trains  
-- Edit train details  
-- Manage seat availability  
-- View all bookings  
+### User
+- Create a new account by entering full name, age, gender, phone number, email, and password.
+- Login using registered email and password.
+- View available train list with details.
+- Book train tickets by selecting seats.
+- View all booked tickets and booking details.
+- Logout securely.
 
-### 💾 Database Features
-- Secure login system  
-- Seat availability management  
-- Real-time seat updates after booking/cancellation  
+## Technologies Used
 
----
+- Java (JSP & Servlet)
+- MySQL Database
+- JDBC (Java Database Connectivity)
+- Apache Tomcat v10
+- HTML and CSS
+- Eclipse IDE (Enterprise Edition)
 
-## 🧰 Tech Stack Used
-
-### **Frontend**
-- HTML5  
-- CSS3  
-- JSP (Java Server Pages)  
-
-### **Backend**
-- Java  
-- Servlets  
-- JDBC  
-- MVC Architecture  
-
-### **Database**
-- MySQL  
-- SQL Queries for CRUD operations  
-
-### **Server**
-- Apache Tomcat v10  
-
-### **Tools Used**
-- Eclipse IDE  
-- MySQL Workbench / phpMyAdmin  
-- Git & GitHub  
-
----
-
-## 🗄️ Database Structure (train_ticket_booking)
-
-Below is the complete database schema required for the project.
-
-### 🔐 **Admin Table**
-```sql
-CREATE TABLE admin (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    username VARCHAR(50) UNIQUE NOT NULL,
-    password VARCHAR(100) NOT NULL,
-    role VARCHAR(20) NOT NULL DEFAULT 'admin'
-);
+## Project Structure
+```
+TrainTicketBookingSystem/
+│
+├── src/main/java/
+│   └── (default package)
+│ 	  └── AddNewTrainServlet.java
+│ 	  └── AdminLoginServlet.java
+│ 	  └── BookedPassengersServlet.java
+│ 	  └── BookedTrainDetailsServlet.java
+│ 	  └── BookSeatsServlet.java
+│ 	  └── BookTicketServlet.java
+│ 	  └── ChangePasswordServlet.java
+│ 	  └── CreateAccountServlet.java
+│ 	  └── DeleteTrainServlet.java
+│ 	  └── DeleteUserServlet.java
+│ 	  └── EditTrainServlet.java
+│ 	  └── EditUserServlet.java
+│ 	  └── UserLoginServlet.java
+│   └── DBC
+│ 	  └── DBConnection.java
+│
+├── WebContent
+│	  └── images
+│ 	      └── all images
+│	  └── add-new-train.jsp
+│	  └── admin-dashboard.jsp
+│	  └── admin-login.jsp
+│	  └── admin-logout.jsp
+│	  └── booked-passengers.jsp
+│	  └── booked-train-details.jsp
+│	  └── book-ticket.jsp
+│	  └── change-password.jsp
+│	  └── confirm-logout.jsp
+│	  └── confirm-logout-admin.jsp
+│	  └── create-account.jsp
+│	  └── delete-train.jsp
+│	  └── delete-user.jsp
+│	  └── edit-train.jsp
+│	  └── edit-user.jsp
+│	  └── error.jsp
+│	  └── error1.jsp
+│	  └── error2.jsp
+│	  └── erroraccount.jsp
+│	  └── erroradd-students.jsp
+│	  └── erroradd1.jsp
+│	  └── errorbook.jsp
+│	  └── index.jsp
+│	  └── list-trains.jsp
+│	  └── list-trains-user.jsp
+│	  └── user-dashboard.jsp
+│	  └── user-details.jsp
+└──   └── user-login.jsp
 ```
 
-### 👥 **Users Table**
-```sql
-CREATE TABLE users (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    full_name VARCHAR(100) NOT NULL,
-    age INT NOT NULL,
-    gender VARCHAR(10) NOT NULL,
-    phone_number VARCHAR(15) NOT NULL,
-    email VARCHAR(100) UNIQUE NOT NULL
-);
-```
+## Database Details (MySQL)
 
-### 🔑 **User Login Table**
-```sql
-CREATE TABLE user_login (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    email VARCHAR(100) UNIQUE NOT NULL,
-    password VARCHAR(100) NOT NULL
-);
-```
+### Database Name: `train_ticket_booking`
 
-### 🚆 **Trains Table**
-```sql
-CREATE TABLE trains (
-    train_number VARCHAR(20) PRIMARY KEY,
-    train_name VARCHAR(100) NOT NULL,
-    departure_date DATE NOT NULL,
-    departure_time TIME NOT NULL,
-    from_station VARCHAR(100) NOT NULL,
-    to_station VARCHAR(100) NOT NULL,
-    price_per_seat DECIMAL(10,2) NOT NULL,
-    max_seats INT NOT NULL
-);
-```
+### Tables Included
 
-### 🎫 **Seat Availability Table**
-```sql
-CREATE TABLE available_seats (
-    train_number VARCHAR(20),
-    available_seats INT NOT NULL,
-    FOREIGN KEY (train_number) REFERENCES trains(train_number)
-);
-```
+1. **admin**  
+   Stores administrator credentials.
 
-### 📄 **Bookings Table**
-```sql
-CREATE TABLE bookings (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    full_name VARCHAR(100) NOT NULL,
-    phone_number VARCHAR(20) NOT NULL,
-    email VARCHAR(100) NOT NULL,
-    train_name VARCHAR(100) NOT NULL,
-    train_number VARCHAR(20) NOT NULL,
-    departure_date DATE NOT NULL,
-    departure_time TIME NOT NULL,
-    from_station VARCHAR(100) NOT NULL,
-    to_station VARCHAR(100) NOT NULL,
-    price_per_seat DECIMAL(10,2) NOT NULL,
-    seats_booked INT NOT NULL,
-    total_price DECIMAL(10,2) NOT NULL,
-    booking_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-```
+2. **users**  
+   Stores user profile details.
 
----
+3. **user_login**  
+   Stores login authentication data for users.
 
-## 🚀 How to Run the Project (Local Setup)
+4. **trains**  
+   Stores all train information such as name, timing, route, price, and seat capacity.
 
-### 1️⃣ **Install Requirements**
-- Java JDK 17 or above  
-- Eclipse IDE for Enterprise Java  
-- Apache Tomcat 10  
-- MySQL Server  
+5. **available_seats**  
+   Tracks remaining seats for each train.
 
-### 2️⃣ **Import Project**
-1. Open Eclipse  
-2. File → Import → *Existing Projects into Workspace*  
-3. Select the project folder  
-4. Finish  
+6. **bookings**  
+   Stores booking details for each user including fare, seats booked, and timestamp.
 
-### 3️⃣ **Configure Tomcat**
-1. Go to **Servers** tab  
-2. Add **Apache Tomcat v10**  
-3. Set the location of Tomcat  
+### Table Relationships
 
-### 4️⃣ **Setup Database**
-- Create database:
-```sql
-CREATE DATABASE train_ticket_booking;
-```
-- Run all the table queries provided above  
+- `train_number` links the following tables:
+  - trains
+  - available_seats
+  - bookings
 
-### 5️⃣ **Update DB Credentials**  
-File:  
-`src/main/java/DBC/DBConnection.java`
+- `email` links:
+  - users
+  - user_login
+  - bookings
 
-Modify:
-```java
-private static final String URL = "jdbc:mysql://localhost:3306/train_ticket_booking";
-private static final String USER = "root";
-private static final String PASSWORD = "your_password";
-```
+### Key Database Operations
 
-### 6️⃣ **Run Project**
-- Right-click on project → Run As → Run on Server  
-- Select Tomcat  
-- Start  
+- Insert, update, and delete train records.
+- Maintain user details and login credentials.
+- Book ticket, update seat availability, and store booking details.
+- Fetch bookings for admin and user dashboards.
 
----
+## How to Run the Project
 
-## 📸 Screenshots  
-(Add your project screenshots here)
+1. Install Apache Tomcat v10.
+2. Install MySQL and create the database `train_ticket_booking`.
+3. Import all required tables using provided SQL scripts.
+4. Open Eclipse IDE for Enterprise Java Developers.
+5. Import the project as an existing dynamic web project.
+6. Add Apache Tomcat v10 to the server runtime environment.
+7. Configure MySQL credentials in `DBConnection.java`.
+8. Run the project on Tomcat server.
 
----
+## GitHub Repository Structure
 
-## 📂 Folder Structure
-
-```
-/src
-/WebContent
-/WEB-INF
-   |-- web.xml
-```
-
----
-
-## 🧑‍💻 Author
-**Aathiganapathi K**
-
----
-
-## ⭐ Contribute
-Feel free to fork, improve and create pull requests!
-
----
-
-## 📜 License
-This project is for educational and learning purposes.
+This repository contains:
+- All servlets for backend logic.
+- JSP pages for front-end UI.
+- Database connection utilities.
+- WebContent folder with images and UI screens.
+- Complete CRUD operations for trains, users, and bookings.
 
